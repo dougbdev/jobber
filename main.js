@@ -1,5 +1,5 @@
 const urls = {
-	"travelers": "https://careers.travelers.com/",
+	"travelers": "https://careers.travelers.com/job-search-results/",
 }
 
 
