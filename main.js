@@ -1,5 +1,5 @@
 const urls = {
-	"travelers": "https://careers.travelers.com/job-search-results/",
+	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology",
 }
 
 
