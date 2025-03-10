@@ -1,9 +1,11 @@
+import express from 'express';
+import axios from 'axios';
+import * as cheerio from 'cheerio';
+
 const urls = {
 	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology",
 }
 
-const express = require('express');
-const axios = require('axios');
 const app = express();
 
 const PORT = process.env.port || 3000;
@@ -13,12 +15,20 @@ const getHtml = async () => {
   let html = "1";
 
   try {
-    console.log("Entering try block");
     
     html = await axios.get(urls.travelers);
-      console.log("Entering response set");
-      console.log(html.data);
-           return html.data;
+
+    const test = cheerio.load(html);
+
+    const textContent = test('.job')
+      .map((i, el) => test(el).text().trim()) // Extract and trim text
+      .get()
+      .filter(text => text.length > 0) // Remove empty lines
+      .join('\n'); // Separate text properly
+
+    console.log(textContent);
+
+    return textContent;
  
   }
   catch (error) {
@@ -27,7 +37,7 @@ const getHtml = async () => {
 
 }
 
-let info = getHtml();
+let info = await getHtml();
 
 console.log(info);
 
