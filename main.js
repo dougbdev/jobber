@@ -2,15 +2,11 @@ const urls = {
 	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology",
 }
 
-
-
 const express = require('express');
 const axios = require('axios');
 const app = express();
 
 const PORT = process.env.port || 3000;
-
-
 
 const getHtml = async () => {
 
@@ -30,8 +26,6 @@ const getHtml = async () => {
   }
 
 }
-
-
 
 let info = getHtml();
 
