@@ -25,7 +25,6 @@ const getHtml = async () => {
       .get()
       .filter(text => text.length > 0) // Remove empty lines
       .join('\n'); // Separate text properly
-
     console.log(textContent);
 
     return textContent;
