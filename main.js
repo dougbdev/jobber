@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 
 const urls = {
-	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology",
+	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology", "search-results-ol"
 }
 
 const app = express();
@@ -16,12 +16,11 @@ const getHtml = async () => {
 
 	try {
 
-		const html = await axios.get(urls.travelers);
+		let html = await axios.get(urls.travelers);
 		//		console.log("html: ", html);
 
-
 		const test = cheerio.load(html.data); // failing, and whats the point of cheerio anyways?
-		console.log("test: ", test.html());
+		console.log("test: ", test.parseHTML());
 
 		const textContent = test('.job')
 			.map((i, el) => test(el).text().trim()) // Extract and trim text
