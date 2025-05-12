@@ -3,7 +3,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 
 const urls = {
-	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology", "search-results-ol"
+	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology"
 }
 
 const app = express();
@@ -12,25 +12,21 @@ const PORT = process.env.port || 3000;
 
 const getHtml = async () => {
 
-	let html = "1";
+	//	let html = "1";
 
 	try {
 
 		let html = await axios.get(urls.travelers);
-		//		console.log("html: ", html);
+		//		console.log("html: ", html)
 
-		const test = cheerio.load(html.data); // failing, and whats the point of cheerio anyways?
-		console.log("test: ", test.parseHTML());
+		const $ = cheerio.load(html.data);
+		console.log("htmlRawContent: ", $.html());
 
-		const textContent = test('.job')
-			.map((i, el) => test(el).text().trim()) // Extract and trim text
-			.get()
-			.filter(text => text.length > 0) // Remove empty lines
-			.join('\n'); // Separate text properly
+		const jobListRawHTML = $('.job');
 
-		console.log("text content: ", textContent);
+		console.log("jobListHTML: ", jobListRawHTML);
 
-		return textContent;
+		return "";
 
 	}
 	catch (error) {
