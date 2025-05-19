@@ -13,6 +13,7 @@ const getHtml = async () => {
 		headless: 'new' // Use the new headless mode
 	});
 
+	
 	try {
 		const page = await browser.newPage();
 
