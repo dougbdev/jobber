@@ -1,39 +1,34 @@
 import express from 'express';
-import axios from 'axios';
-import * as cheerio from 'cheerio';
+import puppeteer from 'puppeteer'
+
 const urls = {
-	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology",
+	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology"
 }
+
 const app = express();
 const PORT = process.env.port || 3000;
-
 const getHtml = async () => {
-
-	let html = "1";
+	// set browser for lauch
+	const browser = await puppeteer.launch({
+		headless: 'new' // Use the new headless mode
+	});
 
 	try {
+		const page = await browser.newPage();
 
-		const html = await axios.get(urls.travelers);
-		//		console.log("html: ", html);
+		// Navigate to the URL
+		await page.goto(urls.travelers[0], {
+			waitUntil: 'networkidle2' // Wait until the network is idle (no more than 2 connections for at least 500ms)
+		});
 
-		const test = cheerio.load(html.data); // failing, and whats the point of cheerio anyways?
-		console.log("test: ", test.html());
+		const htmlContent = await page.content();
+		console.log(htmlContent)
 
-		const textContent = test('.job')
-			.map((i, el) => test(el).text().trim()) // Extract and trim text
-			.get()
-			.filter(text => text.length > 0) // Remove empty lines
-			.join('\n'); // Separate text properly
-
-		console.log("text content: ", textContent);
-
-		return textContent;
-
+		return "";
 	}
 	catch (error) {
 		console.log("error: ", error);
 	}
-
 }
 
 let info = await getHtml();
