@@ -17,7 +17,7 @@ const getHtml = async () => {
 		const page = await browser.newPage();
 
 		// Navigate to the URL
-		await page.goto(urls.travelers[0], {
+		await page.goto(urls.travelers, {
 			waitUntil: 'networkidle2' // Wait until the network is idle (no more than 2 connections for at least 500ms)
 		});
 

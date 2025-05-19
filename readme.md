@@ -8,8 +8,8 @@ PLAN:
 
 NOTES:
 
-i noticed that we're getting 0 results on the classname search because cheerio can't execute JavaScript. Currently, Cheerio loads the page, the search results are never added to the page because JS can't be execited by cheerio. 
+1) remove all scripts, <style>, <head> <nav> <footer> from html
 
-SOLUTION:
+2) send, with custom prompt, to anthropic, get response back.
 
-Using Puppeteer, instead of cheerio. Puppeteer does have the ability to execute JS, and has all the feautures we may ever need.
+3) get git working
