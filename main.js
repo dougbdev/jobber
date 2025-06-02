@@ -1,5 +1,13 @@
 import express from 'express';
-import puppeteer from 'puppeteer'
+import puppeteer from 'puppeteer';
+import Anthropic from '@anthropic-ai/sdk';
+import dotenv from 'dotenv/config';
+
+const anthropic = new Anthropic({
+  apiKey: 'ANTHROPIC_API_KEY', // defaults to process.env["ANTHROPIC_API_KEY"]
+});
+
+console.log("key: "+ process.env.ANTHROPIC_API_KEY);
 
 const urls = {
 	"travelers": "https://careers.travelers.com/job-search-results/?addtnl_categories[]=Technology"
@@ -23,18 +31,22 @@ const getHtml = async () => {
 		});
 
 		const htmlContent = await page.content();
-		console.log(htmlContent)
+		// console.log(htmlContent)
 
-		return "";
+		return htmlContent;
 	}
 	catch (error) {
 		console.log("error: ", error);
 	}
 }
 
+const AIResponse = async () => {
+	 
+}
+
 let info = await getHtml();
 
-console.log("info: ", info);
+// console.log("info: ", info);
 
 app.listen(PORT, () => {
 	console.log(`server is running on PORT:${PORT}`);
